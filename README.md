@@ -19,20 +19,20 @@ Since we will have a lot of newsfeed items over time, a SQL based DB is not scal
 
 ### Questions to be solved
 
-### Find names of friends for a given User
+__Find names of friends for a given User__
 SELECT name from User WHERE User_id IN (SELECT User_Id_2 FROM Friends WHERE User_id_1 = 1)
 
-### Count my male and female Friends
+__Count my male and female Friends__
 SELECT Gender, count(Gender) FROM User WHERE User_id IN (SELECT User_Id_2 FROM Friends WHERE User_id_1 = 1) GROUP By Gender
 
-### Find my friend who created the account the longest time ago
+__Find my friend who created the account the longest time ago__
 SELECT name from User WHERE User_id IN (SELECT User_Id_2 FROM Friends WHERE User_id_1 = 1) ORDER BY User.Created_At DESC  LIMIT 1
 
 
-### Find friends who are in the same city as me
+__Find friends who are in the same city as me__
 SELECT name FROM User WHERE User_id IN (SELECT User_Id_2 FROM Friends WHERE User_id_1 = 1) AND Location = "San Francisco"
 
-### Create my newsfeed 
+__Create my newsfeed__
 SELECT  User.name, NewsFeedItem.* FROM User 
 INNER JOIN NewsFeedItem on User.User_id = NewsFeedItem.User_id 
 WHERE NewsFeedItem.User_id IN (SELECT User_Id_2 FROM Friends WHERE User_id_1 = 1)
